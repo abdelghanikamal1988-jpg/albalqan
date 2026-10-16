@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 export type ServiceDetailPage = {
   slug: string;
   label: string;
@@ -27,7 +29,7 @@ export const serviceDetailPages: ServiceDetailPage[] = [
       "Keep you updated until you receive a decision",
     ],
     cta: "Start Your Visa Inquiry",
-    image: "/assets/slide-kosovo.jpg",
+    image: asset("/assets/slide-kosovo.jpg"),
   },
   {
     slug: "work-contracts-residency",
@@ -45,7 +47,7 @@ export const serviceDetailPages: ServiceDetailPage[] = [
       "Support renewals and changes",
     ],
     cta: "Speak to an Advisor",
-    image: "/assets/dest-kosovo.jpg",
+    image: asset("/assets/dest-kosovo.jpg"),
   },
   {
     slug: "investor-residency",
@@ -63,7 +65,7 @@ export const serviceDetailPages: ServiceDetailPage[] = [
       "Follow your application until a decision is issued",
     ],
     cta: "Request an Investor Consultation",
-    image: "/assets/dest-serbia.jpg",
+    image: asset("/assets/dest-serbia.jpg"),
   },
   {
     slug: "company-formation",
@@ -81,7 +83,7 @@ export const serviceDetailPages: ServiceDetailPage[] = [
       "Connect company ownership with residency options",
     ],
     cta: "Plan Your Company",
-    image: "/assets/dest-macedonia.jpg",
+    image: asset("/assets/dest-macedonia.jpg"),
   },
   {
     slug: "family-residency",
@@ -99,7 +101,7 @@ export const serviceDetailPages: ServiceDetailPage[] = [
       "Support your family after arrival",
     ],
     cta: "Ask About Family Residency",
-    image: "/assets/dest-montenegro.jpg",
+    image: asset("/assets/dest-montenegro.jpg"),
   },
 ];
 

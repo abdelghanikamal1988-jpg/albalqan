@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 export const navLinks = [
   {
     label: "Home",
@@ -35,21 +37,21 @@ export type HeroSlide = {
 
 export const heroSlides: HeroSlide[] = [
   {
-    image: "/assets/slide-kosovo.jpg",
+    image: asset("/assets/slide-kosovo.jpg"),
     tag: "Service 01 · Short Stay",
     title: "Visit Visa.",
     subtitle:
       "Tourism, family visits and short business stays across the Western Balkans — applications prepared, filed and tracked end to end until the approval decision lands.",
   },
   {
-    image: "/assets/hero-sasun.png",
+    image: asset("/assets/hero-sasun.png"),
     tag: "Service 02 · Long Stay",
     title: "Resident Visa.",
     subtitle:
       "Renewable residency permits for you and your family — documented, compliant and managed through every renewal cycle across all five corridor countries.",
   },
   {
-    image: "/assets/dest-serbia.jpg",
+    image: asset("/assets/dest-serbia.jpg"),
     tag: "Service 03 · Golden Pathways",
     title: "Investor Visa.",
     subtitle:
@@ -61,35 +63,35 @@ export const destinations = [
   {
     name: "Albania",
     tagline: "The Adriatic gateway.",
-    image: "/assets/dest-albania.jpg",
+    image: asset("/assets/dest-albania.jpg"),
     text: "A coastal gateway blending untouched Adriatic and Ionian shorelines with a rapidly maturing investment climate. Albania offers streamlined pathways to residency, property ownership, and business establishment for those seeking early entry into one of Europe's most promising emerging markets.",
     suited: "Investors seeking an early-stage market, and families drawn to a coastal lifestyle.",
   },
   {
     name: "Kosovo",
     tagline: "A young economy on the rise.",
-    image: "/assets/dest-kosovo.jpg",
+    image: asset("/assets/dest-kosovo.jpg"),
     text: "A young and fast-liberalizing economy at the heart of the Balkans. Kosovo presents distinctive opportunities in trade, services, and light industry for investors and professionals drawn to its growing market, favorable tax environment, and increasingly EU-aligned regulatory framework.",
     suited: "Entrepreneurs and professionals entering a fast-growing market.",
   },
   {
     name: "Serbia",
     tagline: "The regional powerhouse.",
-    image: "/assets/dest-serbia.jpg",
+    image: asset("/assets/dest-serbia.jpg"),
     text: "The region's largest and most diversified economy, anchored by thriving manufacturing, technology, and services sectors. Serbia offers robust infrastructure, competitive incentives for foreign investors, and a strategic position bridging Central Europe, the Balkans, and beyond.",
     suited: "Established businesses and professionals seeking scale and connectivity.",
   },
   {
     name: "Montenegro",
     tagline: "Refined Adriatic living.",
-    image: "/assets/dest-montenegro.jpg",
+    image: asset("/assets/dest-montenegro.jpg"),
     text: "An Adriatic destination renowned for its dramatic coastline and luxury real estate market. Montenegro provides an accessible route to residency for investors and families seeking a refined European lifestyle alongside a stable, tourism-driven economy on the path toward EU accession.",
     suited: "Investors and families seeking lifestyle and property opportunities.",
   },
   {
     name: "North Macedonia",
     tagline: "The strategic crossroads.",
-    image: "/assets/dest-macedonia.jpg",
+    image: asset("/assets/dest-macedonia.jpg"),
     text: "A strategic crossroads linking Western Europe with the wider Balkans, distinguished by its low cost of doing business, expanding free trade zones, and candidate status for EU membership. North Macedonia is an increasingly attractive base for company formation and long-term investment.",
     suited: "Business owners focused on cost efficiency and regional trade.",
   },
@@ -131,7 +133,7 @@ export const whyCards = [
     id: "team",
     title: "20+ Years Team Experience",
     text: "Consular officers, licensed attorneys, and corporate relocation directors bringing two decades of grounded execution.",
-    icon: "/assets/icon-team-experience.png",
+    icon: asset("/assets/icon-team-experience.png"),
     wide: false,
     span: "md:col-span-3",
   },
@@ -139,7 +141,7 @@ export const whyCards = [
     id: "integrated",
     title: "Integrated Services",
     text: "All-in-one solutions encompassing visas, bank account introduction, notary legalizations, tax ID issuance, and real estate review.",
-    icon: "/assets/icon-intergrated-services.png",
+    icon: asset("/assets/icon-intergrated-services.png"),
     wide: false,
     span: "md:col-span-3",
   },
@@ -147,7 +149,7 @@ export const whyCards = [
     id: "balkan",
     title: "Balkan-Focused Expertise",
     text: "Hyper-specialized focus exclusively on the 5 Balkan states rather than diluted, generic worldwide offerings.",
-    icon: "/assets/icon-balkan-focused-expertise.png",
+    icon: asset("/assets/icon-balkan-focused-expertise.png"),
     wide: true,
     span: "md:col-span-6",
   },
@@ -155,7 +157,7 @@ export const whyCards = [
     id: "family",
     title: "Family Solutions",
     text: "Turnkey dependent synchronization ensuring schooling approvals, European health coverage, and unified residency renewal cycles.",
-    icon: "/assets/icon-family-solutions.png",
+    icon: asset("/assets/icon-family-solutions.png"),
     wide: true,
     span: "md:col-span-6",
   },
@@ -163,7 +165,7 @@ export const whyCards = [
     id: "personalized",
     title: "Personalized Guidance",
     text: "Dedicated senior case managers based in Dubai and Abu Dhabi providing direct, single-point-of-contact accountability.",
-    icon: "/assets/icon-personalized-guidance.png",
+    icon: asset("/assets/icon-personalized-guidance.png"),
     wide: false,
     span: "md:col-span-3",
   },
@@ -171,7 +173,7 @@ export const whyCards = [
     id: "confidentiality",
     title: "Absolute Confidentiality",
     text: "Case files are handled under strict non-disclosure protocols — no third-party brokers, no data resale, complete professional discretion.",
-    icon: "/assets/icon-absolute-confidentiality.png",
+    icon: asset("/assets/icon-absolute-confidentiality.png"),
     wide: false,
     span: "md:col-span-3",
   },
@@ -301,17 +303,17 @@ export const legalLinks = [
 
 export const socials = [
   {
-    src: "/assets/social-facebook.svg",
+    src: asset("/assets/social-facebook.svg"),
     alt: "Facebook",
     href: "https://www.facebook.com/share/1E1AM7GD9a/",
   },
   {
-    src: "/assets/social-instagram.svg",
+    src: asset("/assets/social-instagram.svg"),
     alt: "Instagram",
     href: "https://www.instagram.com/albalqan.tvs",
   },
   {
-    src: "/assets/social-tiktok.svg",
+    src: asset("/assets/social-tiktok.svg"),
     alt: "TikTok",
     href: "https://www.tiktok.com/@albalqan.tvs",
   },

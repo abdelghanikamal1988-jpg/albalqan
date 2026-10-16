@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 export type CountryDetailPage = {
   slug: string;
   country: string;
@@ -36,7 +38,7 @@ export const countryDetailPages: CountryDetailPage[] = [
       "Support you after arrival",
     ],
     cta: "Request a Free Consultation",
-    image: "/assets/dest-albania.jpg",
+    image: asset("/assets/dest-albania.jpg"),
   },
   {
     slug: "kosovo-investment",
@@ -60,7 +62,7 @@ export const countryDetailPages: CountryDetailPage[] = [
       "Support your residency application",
     ],
     cta: "Request a Free Consultation",
-    image: "/assets/dest-kosovo.jpg",
+    image: asset("/assets/dest-kosovo.jpg"),
   },
   {
     slug: "serbia-golden-visa",
@@ -80,7 +82,7 @@ export const countryDetailPages: CountryDetailPage[] = [
       "Advise on the next steps after approval",
     ],
     cta: "Request a Free Consultation",
-    image: "/assets/dest-serbia.jpg",
+    image: asset("/assets/dest-serbia.jpg"),
   },
   {
     slug: "montenegro-corporate",
@@ -104,7 +106,7 @@ export const countryDetailPages: CountryDetailPage[] = [
       "Provide ongoing administrative guidance",
     ],
     cta: "Request a Free Consultation",
-    image: "/assets/dest-montenegro.jpg",
+    image: asset("/assets/dest-montenegro.jpg"),
   },
   {
     slug: "north-macedonia-pathway",
@@ -128,7 +130,7 @@ export const countryDetailPages: CountryDetailPage[] = [
       "Support you through settlement",
     ],
     cta: "Request a Free Consultation",
-    image: "/assets/dest-macedonia.jpg",
+    image: asset("/assets/dest-macedonia.jpg"),
   },
 ];
 
