@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
 
@@ -32,7 +34,10 @@ export default function Partners() {
   return (
     <section
       id="partners"
-      className="relative overflow-hidden bg-black bg-[url(/assets/partners-wheel.jpg)] bg-cover bg-center bg-no-repeat py-20 text-white md:bg-fixed md:py-28"
+      className="relative overflow-hidden bg-black bg-cover bg-center bg-no-repeat py-20 text-white md:bg-fixed md:py-28"
+      style={{
+        backgroundImage: `url(${asset("/assets/partners-wheel.jpg")})`,
+      }}
     >
       <div className="absolute inset-0 bg-black/70" aria-hidden />
 
@@ -45,7 +50,7 @@ export default function Partners() {
       </div>
 
       <div className="relative mt-20 md:mt-24">
-        <Row src="/assets/partners-row1.png" dir="l" />
+        <Row src={asset("/assets/partners-row1.png")} dir="l" />
       </div>
     </section>
   );

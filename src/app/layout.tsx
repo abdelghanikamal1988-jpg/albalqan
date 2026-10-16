@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
@@ -66,7 +68,7 @@ export const metadata: Metadata = {
       "Sovereign mobility, golden residency, and executive consular services connecting the UAE with Balkan corridor opportunities.",
     images: [
       {
-        url: "/assets/hero-sasun.png",
+        url: asset("/assets/hero-sasun.png"),
         width: 1200,
         height: 630,
         alt: "AL BALQAN Tourism & Visa Services",
@@ -78,7 +80,7 @@ export const metadata: Metadata = {
     title: "AL BALQAN — Tourism & Visa Services",
     description:
       "Sovereign mobility, golden residency, and executive consular services connecting the UAE with Balkan corridor opportunities.",
-    images: ["/assets/hero-sasun.png"],
+    images: [asset("/assets/hero-sasun.png")],
   },
   robots: { index: true, follow: true },
 };

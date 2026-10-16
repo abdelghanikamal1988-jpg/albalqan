@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -107,7 +109,7 @@ export default function Intro() {
           </svg>
           <span className="intro-mark block">
             <Image
-              src="/assets/logo-header.svg"
+              src={asset("/assets/logo-header.svg")}
               alt=""
               width={45}
               height={56}

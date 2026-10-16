@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import Link from "next/link";
 import { footerColumns, legalLinks, socials } from "@/data/site";
@@ -11,7 +13,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-3">
             <Link href="/" aria-label="AL BALQAN — home">
               <Image
-                src="/assets/logo-footer.svg"
+                src={asset("/assets/logo-footer.svg")}
                 alt="AL BALQAN Tourism & Visa Services"
                 width={500}
                 height={120}
@@ -34,7 +36,7 @@ export default function Footer() {
                   className="opacity-70 transition hover:opacity-100"
                 >
                   <Image
-                    src={s.src}
+                    src={asset(s.src)}
                     alt={s.alt}
                     width={18}
                     height={18}

@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { heroSlides } from "@/data/site";
@@ -12,7 +14,7 @@ function pad(n: number) {
 }
 
 function frameSrc(i: number) {
-  return `/assets/frames/f${String(i).padStart(3, "0")}.jpg`;
+  return asset(`/assets/frames/f${String(i).padStart(3, "0")}.jpg`);
 }
 
 function scrubDist(vh: number) {

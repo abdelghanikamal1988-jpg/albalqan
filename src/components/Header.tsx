@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, Fragment, type MouseEvent } from "react";
@@ -132,7 +134,7 @@ export default function Header() {
             className="flex items-center"
           >
             <Image
-              src="/assets/logo-header.svg"
+              src={asset("/assets/logo-header.svg")}
               alt="AL BALQAN Tourism & Visa Services"
               width={45}
               height={56}
@@ -156,7 +158,7 @@ export default function Header() {
                   onDark ? " brightness-0 invert" : ""
                 }`}
               >
-                <Image src={s.src} alt={s.alt} width={18} height={18} />
+                <Image src={asset(s.src)} alt={s.alt} width={18} height={18} />
               </a>
             ))}
           </div>

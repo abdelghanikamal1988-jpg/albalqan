@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +9,7 @@ export default function NotFound() {
       <header className="flex h-[72px] items-center px-5 md:px-10">
         <Link href="/" aria-label="AL BALQAN — home">
           <Image
-            src="/assets/logo-header.svg"
+            src={asset("/assets/logo-header.svg")}
             alt="AL BALQAN Tourism & Visa Services"
             width={45}
             height={56}
