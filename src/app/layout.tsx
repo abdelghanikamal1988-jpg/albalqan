@@ -96,6 +96,11 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <script
+          dangerouslySetInnerHTML={{
+            __html: `if("scrollRestoration" in history)history.scrollRestoration="manual";`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
