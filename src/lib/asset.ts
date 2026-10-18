@@ -1,4 +1,4 @@
-export const ASSET_BASE_PATH = "/albalqan";
+export const ASSET_BASE_PATH = "";
 
 export function asset(path: string) {
   if (!path.startsWith("/") || path.startsWith(`${ASSET_BASE_PATH}/`)) {

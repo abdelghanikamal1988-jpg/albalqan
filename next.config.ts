@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: "/albalqan",
-  assetPrefix: "/albalqan/",
   output: "export",
   images: {
     unoptimized: true,
