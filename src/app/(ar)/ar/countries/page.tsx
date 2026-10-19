@@ -37,7 +37,7 @@ export default function CountriesPageAr() {
       <section className="bg-white px-5 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-[1440px]">
           <SectionHeading
-            label="محافظ الممرات"
+            label="برامج دول البلقان"
             title="أين نفتح الأبواب."
           />
 
@@ -122,7 +122,7 @@ export default function CountriesPageAr() {
           <Reveal delay={150}>
             <p className="mx-auto mt-12 max-w-2xl text-center text-[12.5px] font-light leading-relaxed text-ash">
               المتطلبات والمسارات المتاحة تختلف حسب الدولة والجنسية وقد تتغير.
-              تُؤكد التفاصيل خلال استشارتك.
+              نؤكد لك التفاصيل خلال استشارتك.
             </p>
           </Reveal>
         </div>
@@ -132,7 +132,7 @@ export default function CountriesPageAr() {
 
       <Cta
         title="لست متأكد أي دولة تناسبك؟"
-        text="أهدافك وجنسيةتك وجدولك الزمني كلها تحدد الخيار الأفضل. في استشارة قصيرة نقارن الخيارات المطبقة عليك ونوصي بنقطة بداية واضحة."
+        text="أهدافك وجنسيةتك وجدولك الزمني كلها تحدد الخيار الأفضل. في استشارة قصيرة نقارن الخيارات التي تنطبق عليك ونوصي بنقطة بداية واضحة."
         cta="اطلب استشارة"
       />
     </PageShell>

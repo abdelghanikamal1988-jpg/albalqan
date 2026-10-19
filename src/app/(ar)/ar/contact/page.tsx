@@ -22,8 +22,8 @@ export default function ContactPageAr() {
     <PageShell>
       <PageHero
         label="تواصل معنا"
-        title="لنتحدث عن خطتك القادمة."
-        text="شاركنا بعض التفاصيل وسيتواصل معك فريقنا بخطوات واضحة. كل محادثة سرية."
+        title="لنتحدث عن خطتك للانتقال."
+        text="شاركنا بعض التفاصيل وسيتواصل معك فريقنا بخطوات واضحة، وكل ما تقوله يظل سرّيًا."
         image="/assets/dest-montenegro.jpg"
       />
 

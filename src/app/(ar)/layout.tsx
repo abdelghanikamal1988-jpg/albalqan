@@ -5,7 +5,7 @@ import { alternatesFor } from "@/lib/seo";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
-import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Inter, Cairo } from "next/font/google";
 import "../globals.css";
 
 const calSans = localFont({
@@ -21,9 +21,8 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const arabic = IBM_Plex_Sans_Arabic({
+const arabic = Cairo({
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
   variable: "--font-ar",
 });
@@ -37,7 +36,7 @@ const jsonLd = {
   logo: "https://albalqan.com/assets/logo-header.svg",
   image: "https://albalqan.com/assets/hero-sasun.png",
   description:
-    "خدمات متخصصة في التأشيرات وإقامة الذهب والخدمات القنصلية التنفيذية، تربط دولة الإمارات العربية المتحدة بفرص ممرات البلقان.",
+    "خدمات متخصصة في التأشيرات وإقامة الذهب والخدمات القنصلية التنفيذية، تربط دولة الإمارات العربية المتحدة بفرص الإقامة والاستثمار في دول البلقان.",
   telephone: "+971 6 749 4905",
   email: "info@albalqan.com",
   address: {
@@ -58,13 +57,13 @@ export const metadata: Metadata = {
     template: "%s — AL BALQAN",
   },
   description:
-    "خدمات متخصصة في التأشيرات وإقامة الذهب والخدمات القنصلية التنفيذية، تربط دولة الإمارات العربية المتحدة بفرص ممرات البلقان.",
+    "خدمات متخصصة في التأشيرات وإقامة الذهب والخدمات القنصلية التنفيذية، تربط دولة الإمارات العربية المتحدة بفرص الإقامة والاستثمار في دول البلقان.",
   keywords: [
     "تأشيرات",
     "إقامة الذهب",
     "إقامة البلقان",
     "إقامة صربيا الذهبية",
-    "التنقل السيادي",
+    "الإقامة في الجبل الأسود",
     "استشارات الهجرة دبي",
     "إقامة ألبانيا",
     "الاستثمار في كوسوفو",
@@ -76,7 +75,7 @@ export const metadata: Metadata = {
     siteName: "AL BALQAN — خدمات السياحة والتأشيرات",
     title: "AL BALQAN — خدمات السياحة والتأشيرات",
     description:
-      "التنقل السيادي وإقامة الذهب والخدمات القنصلية التنفيذية التي تربط الإمارات بفرص ممرات البلقان.",
+      "إقامة الذهب والخدمات القنصلية التنفيذية التي تربط الإمارات بفرص النمو في دول البلقان.",
     images: [
       {
         url: asset("/assets/hero-sasun.png"),
@@ -90,7 +89,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AL BALQAN — خدمات السياحة والتأشيرات",
     description:
-      "التنقل السيادي وإقامة الذهب والخدمات القنصلية التنفيذية التي تربط الإمارات بفرص ممرات البلقان.",
+      "إقامة الذهب والخدمات القنصلية التنفيذية التي تربط الإمارات بفرص النمو في دول البلقان.",
     images: [asset("/assets/hero-sasun.png")],
   },
   robots: { index: true, follow: true },
