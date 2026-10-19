@@ -1,13 +1,17 @@
+"use client";
+
 import { asset } from "@/lib/asset";
 
 import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
-function Strip({ src }: { src: string }) {
+function Strip({ src, alt }: { src: string; alt: string }) {
   return (
     <Image
       src={src}
-      alt="Partner organizations"
+      alt={alt}
       width={8582}
       height={186}
       sizes="100vw"
@@ -16,13 +20,13 @@ function Strip({ src }: { src: string }) {
   );
 }
 
-function Row({ src, dir }: { src: string; dir: "l" | "r" }) {
+function Row({ src, dir, alt }: { src: string; dir: "l" | "r"; alt: string }) {
   return (
     <div className="overflow-hidden" aria-hidden>
       <div className={`marquee marquee-${dir}`}>
         {[0, 1].map((k) => (
           <div key={k} className="flex shrink-0">
-            <Strip src={src} />
+            <Strip src={src} alt={alt} />
           </div>
         ))}
       </div>
@@ -31,6 +35,7 @@ function Row({ src, dir }: { src: string; dir: "l" | "r" }) {
 }
 
 export default function Partners() {
+  const t = ui[useLang()];
   return (
     <section
       id="partners"
@@ -43,14 +48,18 @@ export default function Partners() {
 
       <div className="relative mx-auto max-w-[1440px] px-5 md:px-10">
         <SectionHeading
-          label="Our Partners"
-          title="Entities & Organizations We Work With."
+          label={t.partnersLabel}
+          title={t.partnersTitle}
           light
         />
       </div>
 
       <div className="relative mt-20 md:mt-24">
-        <Row src={asset("/assets/partners-row1.png")} dir="l" />
+        <Row
+          src={asset("/assets/partners-row1.png")}
+          dir="l"
+          alt={t.partnersAria}
+        />
       </div>
     </section>
   );

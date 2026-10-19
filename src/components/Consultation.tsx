@@ -8,43 +8,51 @@ import {
 } from "react";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { consultationSteps, countries, serviceTypes, topicPrefill } from "@/data/site";
+import {
+  consultationSteps,
+  countries,
+  serviceTypes,
+  topicPrefill,
+} from "@/data/site";
+import { ui } from "@/data/ui";
+import { localize } from "@/lib/i18n";
+import { useLang } from "@/components/I18nProvider";
 
 const FORMS_ENDPOINT = "https://albalqan-test.netlify.app/__forms.html";
+
+type ConsultT = {
+  [K in keyof (typeof ui)["en"]["consultation"]]: string;
+};
 
 const labelCls =
   "block text-[10px] font-medium uppercase tracking-[0.22em] text-ash";
 const inputBase =
   "mt-2.5 w-full border-b bg-transparent py-2.5 text-[16px] text-ink outline-none transition-colors placeholder:text-black/25 focus:border-ink";
 
-function validate(data: FormData): Record<string, string> {
+function validate(data: FormData, t: ConsultT): Record<string, string> {
   const errs: Record<string, string> = {};
   const str = (k: string) => String(data.get(k) ?? "").trim();
 
-  if (!str("fullName")) errs.fullName = "Please enter your full name.";
+  if (!str("fullName")) errs.fullName = t.errFullName;
 
   const email = str("email");
-  if (!email) errs.email = "Email address is required.";
+  if (!email) errs.email = t.errEmailRequired;
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
-    errs.email = "Please enter a valid email address.";
+    errs.email = t.errEmailInvalid;
 
   const phone = str("phone");
-  if (!phone) errs.phone = "Phone number is required.";
-  else if (!/^\+?[\d\s()-]{7,}$/.test(phone))
-    errs.phone = "Enter a valid number with country code, e.g +971 50 000 0000.";
+  if (!phone) errs.phone = t.errPhoneRequired;
+  else if (!/^\+?[\d\s()-]{7,}$/.test(phone)) errs.phone = t.errPhoneInvalid;
 
-  if (!str("nationality"))
-    errs.nationality = "Nationality is required for eligibility review.";
-  if (!str("country")) errs.country = "Please select a destination country.";
-  if (!str("service")) errs.service = "Please select a service type.";
+  if (!str("nationality")) errs.nationality = t.errNationality;
+  if (!str("country")) errs.country = t.errCountry;
+  if (!str("service")) errs.service = t.errService;
 
   const details = str("details");
-  if (!details) errs.details = "Please briefly describe your case.";
-  else if (details.length < 10)
-    errs.details = "A few more details will help us assess your case.";
+  if (!details) errs.details = t.errDetailsEmpty;
+  else if (details.length < 10) errs.details = t.errDetailsShort;
 
-  if (!data.get("consent"))
-    errs.consent = "Consent is required to process your request.";
+  if (!data.get("consent")) errs.consent = t.errConsent;
 
   return errs;
 }
@@ -197,6 +205,12 @@ export default function Consultation({
   initialCountry?: string;
   initialService?: string;
 }) {
+  const lang = useLang();
+  const t = ui[lang].consultation;
+  const stepsList = consultationSteps[lang];
+  const countryList = countries[lang];
+  const serviceList = serviceTypes[lang];
+  const prefill = topicPrefill[lang];
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [country, setCountry] = useState(initialCountry);
@@ -207,12 +221,12 @@ export default function Consultation({
   // ?topic= prefill (client-side so it works on static hosting)
   useEffect(() => {
     const topic = new URLSearchParams(window.location.search).get("topic");
-    const pf = topic ? topicPrefill[topic] : undefined;
+    const pf = topic ? prefill[topic] : undefined;
     /* eslint-disable react-hooks/set-state-in-effect */
     if (pf?.country && !initialCountry) setCountry(pf.country);
     if (pf?.service && !initialService) setService(pf.service);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [initialCountry, initialService]);
+  }, [prefill, initialCountry, initialService]);
 
   const fieldCls = (name: string) =>
     `${inputBase} ${errors[name] ? "border-[#b3261e]" : "border-black/15"}`;
@@ -234,7 +248,7 @@ export default function Consultation({
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const errs = validate(data);
+    const errs = validate(data, t);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
@@ -298,18 +312,14 @@ export default function Consultation({
       className="bg-white px-5 py-24 md:px-10 md:py-28 lg:py-32"
     >
       <div className="mx-auto max-w-[1376px]">
-        <SectionHeading
-          label="Request a Consultation"
-          title="Start Your Sovereign Mobility Assessment."
-        />
+        <SectionHeading label={t.headingLabel} title={t.headingTitle} />
 
         <p className="mx-auto mt-6 max-w-xl text-center text-[14px] font-light leading-relaxed text-ash">
-          Submit your profile for review. Our executive advisors verify Balkan
-          eligibility parameters prior to formal consultation scheduling.
+          {t.intro}
         </p>
 
         <Reveal className="mx-auto mt-16 grid max-w-4xl gap-10 sm:grid-cols-3 md:gap-12">
-          {consultationSteps.map((stepItem) => (
+          {stepsList.map((stepItem) => (
             <div key={stepItem.n} className="border-t border-black/10 pt-5">
               <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-ash">
                 {`0${stepItem.n}`}
@@ -325,27 +335,25 @@ export default function Consultation({
         </Reveal>
 
         <p className="mx-auto mt-6 max-w-xl text-center text-[12.5px] font-light leading-relaxed text-ash">
-          Response time: within 24 business hours.
+          {t.responseTime}
         </p>
 
         {submitted ? (
           <div className="mx-auto mt-24 max-w-3xl border-t border-black/10 pt-16 text-center">
             <p className="font-display text-3xl tracking-tight text-ink">
-              Thank you.
+              {t.successTitle}
             </p>
             <p className="mt-4 text-[14px] font-light leading-relaxed text-ash">
-              Your request has been received and a member of our team will
-              contact you shortly.
+              {t.successText}
             </p>
             <p className="mt-2 text-[12.5px] font-light text-black/45">
-              Response time: within 24 business hours.
+              {t.responseTime}
             </p>
           </div>
         ) : (
           <Reveal delay={120}>
             <p className="mx-auto mt-20 max-w-xl text-center text-[13px] font-light leading-relaxed text-ash">
-              Please complete the fields below. Nationality is required so we
-              can assess eligibility correctly.
+              {t.formNote}
             </p>
 
             <form
@@ -359,18 +367,18 @@ export default function Consultation({
               <input type="hidden" name="form-name" value="consultation" />
               <p className="hidden">
                 <label>
-                  Do not fill out:
+                  {t.botLabel}
                   <input name="bot-field" tabIndex={-1} autoComplete="off" />
                 </label>
               </p>
               <div>
                   <label className={labelCls} htmlFor="full-name">
-                    Full Name *
+                    {t.fullName}
                   </label>
                   <input
                     id="full-name"
                     name="fullName"
-                    placeholder="e.g Tariq Al Mansoor"
+                    placeholder={t.fullNamePh}
                     onChange={() => clearError("fullName")}
                     className={fieldCls("fullName")}
                   />
@@ -379,13 +387,15 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="email">
-                    Email Address *
+                    {t.email}
                   </label>
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="e.g t.almansoor@domin.ae"
+                    dir="ltr"
+                    style={{ textAlign: "right" }}
+                    placeholder={t.emailPh}
                     onChange={() => clearError("email")}
                     className={fieldCls("email")}
                   />
@@ -394,11 +404,13 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="phone">
-                    Phone Number (With Country Code) *
+                    {t.phone}
                   </label>
                   <input
                     id="phone"
                     name="phone"
+                    dir="ltr"
+                    style={{ textAlign: "right" }}
                     placeholder="+971 50 000 0000"
                     onChange={() => clearError("phone")}
                     className={fieldCls("phone")}
@@ -408,12 +420,12 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="nationality">
-                    Nationality (Mandatory for Eligibility)&nbsp;*
+                    {t.nationality}
                   </label>
                   <input
                     id="nationality"
                     name="nationality"
-                    placeholder="e.g Emirati, Saudi, British, Egyptian"
+                    placeholder={t.nationalityPh}
                     onChange={() => clearError("nationality")}
                     className={fieldCls("nationality")}
                   />
@@ -422,13 +434,13 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="country">
-                    Preferred Country *
+                    {t.preferredCountry}
                   </label>
                   <CustomSelect
                     id="country"
                     name="country"
-                    placeholder="Select Destination"
-                    options={[...countries, "Not Sure"]}
+                    placeholder={t.selectDestination}
+                    options={[...countryList, t.notSure]}
                     value={country}
                     error={errors.country}
                     onChange={(v) => {
@@ -441,12 +453,12 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="residence">
-                    Country of Residence
+                    {t.residence}
                   </label>
                   <input
                     id="residence"
                     name="residence"
-                    placeholder="e.g United Arab Emirates"
+                    placeholder={t.residencePh}
                     onChange={() => clearError("residence")}
                     className={fieldCls("residence")}
                   />
@@ -455,13 +467,13 @@ export default function Consultation({
 
                 <div>
                   <label className={labelCls} htmlFor="service">
-                    Service Type *
+                    {t.serviceType}
                   </label>
                   <CustomSelect
                     id="service"
                     name="service"
-                    placeholder="Select Pathway"
-                    options={serviceTypes}
+                    placeholder={t.selectPathway}
+                    options={serviceList}
                     value={service}
                     error={errors.service}
                     onChange={(v) => {
@@ -474,13 +486,13 @@ export default function Consultation({
 
                 <div className="sm:col-span-2">
                   <label className={labelCls} htmlFor="details">
-                    Case Details or Specific Objectives *
+                    {t.details}
                   </label>
                   <textarea
                     id="details"
                     name="details"
                     rows={2}
-                    placeholder="Briefly detail your timeline, family members involved, or business activity..."
+                    placeholder={t.detailsPh}
                     onChange={() => clearError("details")}
                     className={`${fieldCls("details")} resize-none`}
                   />
@@ -496,15 +508,14 @@ export default function Consultation({
                       className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-black"
                     />
                     <span>
-                      I agree to AL BALQAN processing my details to respond to
-                      my request, in line with the{" "}
+                      {t.consent1}
                       <a
-                        href="/privacy-policy"
+                        href={localize("/privacy-policy", lang)}
                         className="underline underline-offset-2 transition-colors hover:text-ink"
                       >
-                        Privacy Policy
+                        {t.consent2}
                       </a>
-                      .
+                      {t.consent3}
                     </span>
                   </label>
                   {errorFor("consent")}
@@ -516,17 +527,16 @@ export default function Consultation({
                     role="alert"
                     className="max-w-md text-center text-[12.5px] font-light leading-relaxed text-[#b3261e]"
                   >
-                    Something went wrong while sending your request. Please try
-                    again, or{" "}
+                    {t.sendError1}
                     <a
                       href="https://wa.me/97167494905"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline underline-offset-2"
                     >
-                      WhatsApp us directly
+                      {t.sendError2}
                     </a>
-                    .
+                    {t.sendError3}
                   </p>
                 )}
                 <button
@@ -534,7 +544,7 @@ export default function Consultation({
                   disabled={sending}
                   className="border border-ink px-12 py-3.5 text-[11px] font-medium uppercase tracking-[0.25em] text-ink transition-colors duration-300 hover:bg-ink hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {sending ? "Sending…" : "Send Request"}
+                  {sending ? t.sending : t.sendRequest}
                 </button>
               </div>
             </form>
@@ -542,8 +552,7 @@ export default function Consultation({
         )}
 
         <p className="mx-auto mt-14 max-w-xl text-center text-[12px] font-light leading-relaxed text-black/45">
-          Your information is used only to respond to your request and is never
-          shared with third parties for marketing.
+          {t.privacyNote}
         </p>
       </div>
     </section>

@@ -4,18 +4,21 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { whyCards } from "@/data/site";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
 export default function WhyAlBalqan() {
+  const lang = useLang();
+  const t = ui[lang];
+  const cards = whyCards[lang];
+
   return (
     <section id="why" className="bg-white px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1440px]">
-        <SectionHeading
-          label="INSTITUTIONAL FOUNDATION"
-          title="Why Al Balqan."
-        />
+        <SectionHeading label={t.whyLabel} title={t.whyTitle} />
 
         <div className="mt-14 grid gap-5 md:mt-20 md:grid-cols-12 md:gap-6">
-          {whyCards.map((card, i) => {
+          {cards.map((card, i) => {
             const dark = card.id === "balkan";
             const num = String(i + 1).padStart(2, "0");
 

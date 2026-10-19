@@ -8,6 +8,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Cta from "@/components/Cta";
 import { services } from "@/data/site";
 import { serviceDetailPages } from "@/data/services";
+import { alternatesFor } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   },
   description:
     "Tourist visas, work contracts, investor residency, company formation, and family residency across Albania, Kosovo, Serbia, Montenegro, and North Macedonia.",
+  alternates: alternatesFor("/services", "en"),
 };
 
 export default function ServicesPage() {
@@ -35,8 +37,8 @@ export default function ServicesPage() {
           />
 
           <div className="mt-14 border-t border-black/10 md:mt-20">
-            {services.map((s, i) => {
-              const detail = serviceDetailPages.find(
+            {services.en.map((s, i) => {
+              const detail = serviceDetailPages.en.find(
                 (p) => p.label === s.title,
               );
               return (

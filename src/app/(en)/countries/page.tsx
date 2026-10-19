@@ -9,6 +9,7 @@ import Faq from "@/components/Faq";
 import Cta from "@/components/Cta";
 import { countryServices, destinations } from "@/data/site";
 import { countryDetailPages } from "@/data/countries";
+import { alternatesFor } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   },
   description:
     "Explore residency, visa, and business opportunities in Albania, Kosovo, Serbia, Montenegro, and North Macedonia with AL BALQAN.",
+  alternates: alternatesFor("/countries", "en"),
 };
 
 export default function CountriesPage() {
@@ -37,9 +39,9 @@ export default function CountriesPage() {
           />
 
           <div className="mt-14 space-y-16 md:mt-20 md:space-y-24">
-            {destinations.map((d, i) => {
+            {destinations.en.map((d, i) => {
               const flip = i % 2 === 1;
-              const detail = countryDetailPages.find(
+              const detail = countryDetailPages.en.find(
                 (p) => p.country === d.name,
               );
               return (
@@ -97,7 +99,7 @@ export default function CountriesPage() {
                       Services available
                     </p>
                     <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px] font-light text-ash">
-                      {countryServices.map((svc) => (
+                      {countryServices.en.map((svc) => (
                         <li key={svc}>{svc}</li>
                       ))}
                     </ul>

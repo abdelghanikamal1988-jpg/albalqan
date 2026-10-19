@@ -5,11 +5,13 @@ import Reveal from "@/components/Reveal";
 import Faq from "@/components/Faq";
 import Consultation from "@/components/Consultation";
 import { contactCards, quickAnswers } from "@/data/site";
+import { alternatesFor } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "Contact AL BALQAN | Request a Consultation" },
   description:
     "Speak with AL BALQAN about visas, residency, and company formation in the Balkans. Confidential consultation from our UAE office.",
+  alternates: alternatesFor("/contact", "en"),
 };
 
 export default function ContactPage() {
@@ -25,7 +27,7 @@ export default function ContactPage() {
       <section className="bg-white px-5 pt-20 pb-4 md:px-10 md:pt-24">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-            {contactCards.map((c, i) => (
+            {contactCards.en.map((c, i) => (
               <Reveal key={c.label} delay={i * 60} className="h-full">
                 <div className="h-full border-t border-black/10 pt-5">
                   <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-ash">
@@ -34,6 +36,7 @@ export default function ContactPage() {
                   {c.href ? (
                     <a
                       href={c.href}
+                      dir={c.href.startsWith("tel:") ? "ltr" : undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-3 block text-[15px] font-semibold text-ink transition-colors duration-300 hover:text-black/55"
@@ -89,7 +92,11 @@ export default function ContactPage() {
 
       <Consultation />
 
-      <Faq items={quickAnswers} label="Quick Answers" title="Before You Ask." />
+      <Faq
+        items={quickAnswers.en}
+        label="Quick Answers"
+        title="Before You Ask."
+      />
     </PageShell>
   );
 }

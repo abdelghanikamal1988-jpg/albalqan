@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Cta from "@/components/Cta";
+import { alternatesFor } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "A UAE-based advisory with 20+ years of team experience guiding individuals, families, and investors toward visas, residency, and business setup across five Balkan countries.",
+  alternates: alternatesFor("/about", "en"),
 };
 
 const whatWeDo = [

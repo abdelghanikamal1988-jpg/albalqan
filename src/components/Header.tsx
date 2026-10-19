@@ -7,9 +7,15 @@ import Link from "next/link";
 import { useEffect, useRef, useState, Fragment, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import { navLinks, socials } from "@/data/site";
+import { ui } from "@/data/ui";
+import { localize, stripPrefix, type Lang } from "@/lib/i18n";
+import { useLang } from "@/components/I18nProvider";
 
 export default function Header() {
   const pathname = usePathname();
+  const lang = useLang();
+  const t = ui[lang];
+  const links = navLinks[lang];
   const [inHero, setInHero] = useState(true);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
@@ -18,10 +24,12 @@ export default function Header() {
   const lastY = useRef(0);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const lastLinkRef = useRef<HTMLAnchorElement>(null);
-  const activeIdx = navLinks.findIndex((l) => l.href === pathname);
+  const activeIdx = links.findIndex(
+    (l) => localize(l.href, lang) === pathname,
+  );
 
   const goTop = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (pathname !== "/") return;
+    if (pathname !== localize("/", lang)) return;
     e.preventDefault();
     const lenis = (
       window as unknown as {
@@ -91,7 +99,11 @@ export default function Header() {
   const barGone = hidden && !inHero && !open;
   const whiteBar = !inHero && !(hidden && !open);
   const consultHref =
-    pathname === "/" || pathname === "/contact" ? "#consultation" : "/contact";
+    pathname === localize("/", lang) || pathname === localize("/contact", lang)
+      ? "#consultation"
+      : localize("/contact", lang);
+  const otherLang: Lang = lang === "en" ? "ar" : "en";
+  const switchHref = localize(stripPrefix(pathname), otherLang);
   const consultCls = `group relative hidden overflow-hidden border px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 sm:block ${
     onDark ? "border-white text-white" : "border-ink text-ink"
   }`;
@@ -102,7 +114,7 @@ export default function Header() {
           onDark ? "group-hover:text-ink" : "group-hover:text-white"
         }`}
       >
-        Book Consultation
+        {t.bookConsultation}
       </span>
       <span
         className={`absolute inset-0 -translate-y-full transition-transform duration-400 ease-out group-hover:translate-y-0 ${
@@ -128,14 +140,14 @@ export default function Header() {
       >
         <div className="relative mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-10">
           <Link
-            href="/"
+            href={localize("/", lang)}
             onClick={goTop}
             aria-label="AL BALQAN — home"
             className="flex items-center"
           >
             <Image
               src={asset("/assets/logo-header.svg")}
-              alt="AL BALQAN Tourism & Visa Services"
+              alt={lang === "ar" ? "AL BALQAN للسياحة والتأشيرات" : "AL BALQAN Tourism & Visa Services"}
               width={45}
               height={56}
               className={`h-11 w-auto transition-all duration-300${
@@ -153,12 +165,17 @@ export default function Header() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.alt}
+                aria-label={lang === "ar" ? s.altAr : s.alt}
                 className={`hidden opacity-70 transition-all duration-300 hover:opacity-100 sm:block${
                   onDark ? " brightness-0 invert" : ""
                 }`}
               >
-                <Image src={asset(s.src)} alt={s.alt} width={18} height={18} />
+                <Image
+                  src={asset(s.src)}
+                  alt={lang === "ar" ? s.altAr : s.alt}
+                  width={18}
+                  height={18}
+                />
               </a>
             ))}
           </div>
@@ -176,9 +193,19 @@ export default function Header() {
               </Link>
             )}
 
+            <Link
+              href={switchHref}
+              aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
+              className={`hidden border px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 sm:block ${
+                onDark ? "border-white/70 text-white hover:bg-white hover:text-ink" : "border-black/25 text-ink hover:bg-ink hover:text-white"
+              }`}
+            >
+              {lang === "en" ? "ع" : "EN"}
+            </Link>
+
             <button
               type="button"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t.menuClose : t.menuOpen}
               aria-expanded={open}
               onClick={() => {
                 setOpen((v) => !v);
@@ -207,17 +234,17 @@ export default function Header() {
       >
         <div className="mx-auto flex h-full max-w-[1440px] flex-col justify-center px-5 md:px-10">
           <nav className="flex flex-col items-start gap-2">
-            {navLinks.map((link, i) => (
+            {links.map((link, i) => (
               <Link
                 key={link.href}
                 ref={
                   i === 0
                     ? firstLinkRef
-                    : i === navLinks.length - 1
+                    : i === links.length - 1
                       ? lastLinkRef
                       : undefined
                 }
-                href={link.href}
+                href={localize(link.href, lang)}
                 onClick={(e) => {
                   if (link.href === "/") goTop(e);
                   setOpen(false);
@@ -262,10 +289,15 @@ export default function Header() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.alt}
+                aria-label={lang === "ar" ? s.altAr : s.alt}
                 className="opacity-70 transition hover:opacity-100"
               >
-                <Image src={s.src} alt={s.alt} width={20} height={20} />
+                <Image
+                  src={s.src}
+                  alt={lang === "ar" ? s.altAr : s.alt}
+                  width={20}
+                  height={20}
+                />
               </a>
             ))}
           </div>
@@ -275,7 +307,7 @@ export default function Header() {
               key={shownIdx}
               className="menu-desc max-w-[340px] text-right text-[14px] font-light leading-relaxed text-ash md:max-w-[440px] md:text-[16px]"
             >
-              {navLinks[shownIdx].desc.split(" ").map((word, wi) => (
+              {links[shownIdx].desc.split(" ").map((word, wi) => (
                 <Fragment key={wi}>
                   {wi > 0 && " "}
                   <span

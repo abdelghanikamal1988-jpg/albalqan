@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { localize } from "@/lib/i18n";
+import { useLang } from "@/components/I18nProvider";
 
 type PageHeroProps = {
   label: string;
@@ -11,6 +15,7 @@ type PageHeroProps = {
 };
 
 export default function PageHero({ label, title, text, image, cta }: PageHeroProps) {
+  const lang = useLang();
   return (
     <section id="top" className="relative overflow-hidden bg-ink">
       <Image
@@ -44,7 +49,7 @@ export default function PageHero({ label, title, text, image, cta }: PageHeroPro
         {cta && (
           <Reveal delay={300}>
             <Link
-              href={cta.href}
+              href={localize(cta.href, lang)}
               className="mt-8 inline-flex min-h-[44px] w-full items-center justify-center border border-white px-10 py-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-white hover:text-ink sm:w-auto"
             >
               {cta.label}

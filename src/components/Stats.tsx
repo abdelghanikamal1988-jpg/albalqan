@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { stats } from "@/data/site";
+import { stats, type Stat } from "@/data/site";
+import { useLang } from "@/components/I18nProvider";
 
 function useCountUp(target: number, active: boolean) {
   const [value, setValue] = useState(0);
@@ -33,7 +34,7 @@ function StatCell({
   active,
   index,
 }: {
-  stat: (typeof stats)[number];
+  stat: Stat;
   active: boolean;
   index: number;
 }) {
@@ -56,6 +57,7 @@ function StatCell({
 }
 
 export default function Stats() {
+  const lang = useLang();
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
 
@@ -80,7 +82,7 @@ export default function Stats() {
   return (
     <section ref={ref} className="bg-ink px-5 py-16 md:px-10 md:py-20">
       <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-y-12 md:grid-cols-4">
-        {stats.map((s, i) => (
+        {stats[lang].map((s, i) => (
           <StatCell key={s.label} stat={s} active={active} index={i} />
         ))}
       </div>

@@ -3,12 +3,17 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { destinations } from "@/data/site";
+import { ui } from "@/data/ui";
 import { blurMap } from "@/data/blur";
+import { useLang } from "@/components/I18nProvider";
 
 export default function Destinations() {
+  const lang = useLang();
+  const t = ui[lang];
+  const items = destinations[lang];
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const total = destinations.length;
+  const total = items.length;
 
   useEffect(() => {
     let raf = 0;
@@ -37,7 +42,7 @@ export default function Destinations() {
     };
   }, [total]);
 
-  const d = destinations[active];
+  const d = items[active];
 
   return (
     <section
@@ -50,10 +55,10 @@ export default function Destinations() {
         <div className="mx-auto grid h-full max-w-[1440px] grid-rows-[40vh_1fr] lg:grid-cols-[46%_54%] lg:grid-rows-1">
           <div className="order-2 flex min-h-0 flex-col justify-center px-5 pb-8 pt-5 md:px-10 lg:order-1 lg:px-14 lg:py-0">
             <p className="text-[11px] font-medium uppercase tracking-[0.35em] text-ash">
-              Destinations
+              {t.destinationsLabel}
             </p>
             <h2 className="mt-3 font-display text-2xl leading-[1.15] tracking-tight text-ink sm:text-3xl lg:text-[40px]">
-              Explore the Balkans.
+              {t.exploreBalkans}
             </h2>
 
             <div key={active} className="dest-copy mt-7 lg:mt-14">
@@ -83,7 +88,7 @@ export default function Destinations() {
           </div>
 
           <div className="relative order-1 h-[40vh] overflow-hidden lg:order-2 lg:mr-10 lg:my-10 lg:h-auto lg:rounded-xl">
-            {destinations.map((item, i) => (
+            {items.map((item, i) => (
               <Image
                 key={item.name}
                 src={item.image}

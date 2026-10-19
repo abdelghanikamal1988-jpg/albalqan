@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { localize } from "@/lib/i18n";
+import { useLang } from "@/components/I18nProvider";
 
 export type Crumb = {
   label: string;
@@ -6,6 +10,7 @@ export type Crumb = {
 };
 
 export default function Breadcrumbs({ items }: { items: Crumb[] }) {
+  const lang = useLang();
   return (
     <nav
       aria-label="Breadcrumb"
@@ -23,7 +28,7 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
               )}
               {item.href && !last ? (
                 <Link
-                  href={item.href}
+                  href={localize(item.href, lang)}
                   className="flex min-h-[44px] items-center text-black/45 transition hover:text-ink"
                 >
                   {item.label}

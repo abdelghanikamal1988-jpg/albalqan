@@ -7,8 +7,10 @@
   --color-ash: #555555;
   --color-mist: #eff4f7;
   --color-navy: #1d355e;
-  --font-display: var(--font-cal), "Segoe UI", system-ui, sans-serif;
-  --font-sans: var(--font-inter), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-cal), var(--font-ar, "Segoe UI"), system-ui,
+    sans-serif;
+  --font-sans: var(--font-inter), var(--font-ar, "Segoe UI"), system-ui,
+    sans-serif;
 }
 
 html {
@@ -492,4 +494,80 @@ body {
     animation-duration: 0s !important;
     animation-delay: 0s !important;
   }
+}
+
+/* ─── RTL (Arabic pages) — unlayered so it beats Tailwind utilities ─── */
+
+[dir="rtl"] .text-left,
+[dir="rtl"] .text-right {
+  text-align: start;
+}
+
+[dir="rtl"] .pr-10 {
+  padding-right: 0;
+  padding-left: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  [dir="rtl"] .md\:pl-12 {
+    padding-left: 0;
+    padding-right: 3rem;
+  }
+
+  [dir="rtl"] .md\:right-10 {
+    right: auto;
+    left: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  [dir="rtl"] .lg\:mr-10 {
+    margin-right: 0;
+    margin-left: 2.5rem;
+  }
+}
+
+[dir="rtl"] .left-5 {
+  right: 1.25rem;
+  left: auto;
+}
+
+[dir="rtl"] .right-5 {
+  right: auto;
+  left: 1.25rem;
+}
+
+[dir="rtl"] .right-6 {
+  right: auto;
+  left: 1.5rem;
+}
+
+[dir="rtl"] .right-10 {
+  right: auto;
+  left: 2.5rem;
+}
+
+/* Destinations progress fill grows from the right edge */
+[dir="rtl"] .left-0.bg-ink {
+  right: 0;
+  left: auto;
+}
+
+/* Scroll progress grows from the right edge */
+[dir="rtl"] .origin-left.bg-ink {
+  transform-origin: right;
+}
+
+/* Image overlays flip with reading direction */
+[dir="rtl"] .bg-gradient-to-r {
+  --tw-gradient-position: to left;
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .arrow-link .al-ico {
+  transform: translateX(6px);
 }

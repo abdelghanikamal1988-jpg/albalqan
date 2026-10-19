@@ -1,12 +1,14 @@
 import { asset } from "@/lib/asset";
+import { I18nProvider } from "@/components/I18nProvider";
+import { alternatesFor } from "@/lib/seo";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const calSans = localFont({
-  src: "./fonts/CalSansVF.woff2",
+  src: "../fonts/CalSansVF.woff2",
   weight: "100 900",
   display: "swap",
   variable: "--font-cal",
@@ -83,11 +85,14 @@ export const metadata: Metadata = {
     images: [asset("/assets/hero-sasun.png")],
   },
   robots: { index: true, follow: true },
+  alternates: alternatesFor("/", "en"),
 };
 
 export default function RootLayout({
   children,
-}: LayoutProps<"/">) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
@@ -106,7 +111,7 @@ export default function RootLayout({
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        {children}
+        <I18nProvider lang="en">{children}</I18nProvider>
       </body>
     </html>
   );

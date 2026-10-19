@@ -4,20 +4,22 @@ import { useState } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import { insights } from "@/data/site";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
 export default function Insights() {
+  const lang = useLang();
+  const t = ui[lang];
+  const list = insights[lang];
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section id="insights" className="bg-mist px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-[900px]">
-        <SectionHeading
-          label="INSIGHTS & NOTES"
-          title="From the Corridor."
-        />
+        <SectionHeading label={t.insightsLabel} title={t.insightsTitle} />
 
         <div className="mt-12">
-          {insights.map((item, i) => {
+          {list.map((item, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={item.n} delay={i * 90}>

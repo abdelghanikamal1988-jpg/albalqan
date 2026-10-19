@@ -4,6 +4,8 @@ import { asset } from "@/lib/asset";
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
 type Phase = "show" | "leave" | "done";
 
@@ -14,6 +16,7 @@ const RING_DUR = 1000;
 let introPlayed = false;
 
 export default function Intro() {
+  const lang = useLang();
   const [phase, setPhase] = useState<Phase>(() =>
     introPlayed ? "done" : "show",
   );
@@ -124,7 +127,7 @@ export default function Intro() {
         </span>
 
         <span className="intro-sub mt-4 text-[10px] uppercase tracking-[0.45em] text-white/45">
-          Tourism &amp; Visa Services
+          {ui[lang].introSub}
         </span>
       </div>
     </div>

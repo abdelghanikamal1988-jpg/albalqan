@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
 export default function BackToTop() {
+  const lang = useLang();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      aria-label="Back to top"
+      aria-label={ui[lang].backToTop}
       onClick={toTop}
       data-cursor
       className={`group fixed bottom-5 left-5 z-30 flex h-9 w-9 items-center justify-center text-white mix-blend-difference transition-all duration-400 ${

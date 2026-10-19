@@ -6,15 +6,16 @@ import PageHero from "@/components/PageHero";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ChecklistCard from "@/components/ChecklistCard";
 import Cta from "@/components/Cta";
-import { countryDetailPages } from "@/data/countries";
+import { serviceDetailPages } from "@/data/services";
+import { alternatesFor } from "@/lib/seo";
 
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
-  countryDetailPages.map((p) => ({ slug: p.slug }));
+  serviceDetailPages.en.map((p) => ({ slug: p.slug }));
 
 const getPage = (slug: string) =>
-  countryDetailPages.find((p) => p.slug === slug);
+  serviceDetailPages.en.find((p) => p.slug === slug);
 
 export async function generateMetadata({
   params,
@@ -24,11 +25,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const page = getPage(slug);
   if (!page) return {};
-  const url = `/countries/${page.slug}`;
+  const url = `/services/${page.slug}`;
   return {
     title: { absolute: page.seoTitle },
     description: page.metaDescription,
-    alternates: { canonical: url },
+    alternates: alternatesFor(url, "en"),
     openGraph: {
       title: page.seoTitle,
       description: page.metaDescription,
@@ -38,7 +39,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CountryDetailPage({
+export default async function ServiceDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -52,17 +53,17 @@ export default async function CountryDetailPage({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://albalqan.com/" },
-      { "@type": "ListItem", position: 2, name: "Countries", item: "https://albalqan.com/countries" },
+      { "@type": "ListItem", position: 2, name: "Services", item: "https://albalqan.com/services" },
       {
         "@type": "ListItem",
         position: 3,
         name: page.label,
-        item: `https://albalqan.com/countries/${page.slug}`,
+        item: `https://albalqan.com/services/${page.slug}`,
       },
     ],
   };
 
-  const others = countryDetailPages.filter((p) => p.slug !== page.slug);
+  const others = serviceDetailPages.en.filter((p) => p.slug !== page.slug);
   const topicHref = `/contact?topic=${page.slug}`;
 
   return (
@@ -74,7 +75,7 @@ export default async function CountryDetailPage({
         }}
       />
       <PageHero
-        label="Countries"
+        label="Services"
         title={page.h1}
         text={page.intro}
         image={page.image}
@@ -83,15 +84,14 @@ export default async function CountryDetailPage({
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
-          { label: "Countries", href: "/countries" },
+          { label: "Services", href: "/services" },
           { label: page.label },
         ]}
       />
 
       <section className="bg-white px-5 py-16 md:px-10 md:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-6 lg:grid-cols-2">
-          <ChecklistCard title="Who it suits" items={page.whoItSuits} />
-          <ChecklistCard title="How we help" items={page.howWeHelp} />
+        <div className="mx-auto max-w-[1440px]">
+          <ChecklistCard title="What we do" items={page.whatWeDo} />
         </div>
       </section>
 
@@ -100,13 +100,13 @@ export default async function CountryDetailPage({
       <section className="bg-white px-5 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-[1440px]">
           <h2 className="text-[11px] font-medium uppercase tracking-[0.25em] text-black/45">
-            Other countries
+            Other services
           </h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((p) => (
               <Link
                 key={p.slug}
-                href={`/countries/${p.slug}`}
+                href={`/services/${p.slug}`}
                 className="group flex min-h-[44px] items-center justify-between gap-3 rounded-xl border border-black/10 px-5 py-4 text-[13px] font-light text-ash transition hover:border-black/30 hover:text-ink"
               >
                 <span className="min-w-0 break-words">{p.label}</span>

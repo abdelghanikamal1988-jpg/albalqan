@@ -5,8 +5,10 @@ import { asset } from "@/lib/asset";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { heroSlides } from "@/data/site";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
-const STAGES = heroSlides.length;
+const STAGES = heroSlides.en.length;
 const FRAME_COUNT = 240;
 
 function pad(n: number) {
@@ -22,6 +24,8 @@ function scrubDist(vh: number) {
 }
 
 export default function Hero() {
+  const lang = useLang();
+  const slides = heroSlides[lang];
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
   const ref = useRef<HTMLElement>(null);
@@ -32,7 +36,7 @@ export default function Hero() {
   const barRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
 
-  const slide = heroSlides[index];
+  const slide = slides[index];
 
   const scheduleDraw = () => {
     if (rafRef.current) return;
@@ -258,7 +262,7 @@ export default function Hero() {
           aria-label="Services"
           className="absolute right-10 top-1/2 z-10 hidden -translate-y-1/2 lg:block"
         >
-          {heroSlides.map((s, i) => {
+          {slides.map((s, i) => {
             const isActive = i === index;
             return (
               <button
@@ -301,7 +305,7 @@ export default function Hero() {
           <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-5 pb-5 md:px-10 md:pb-6">
             {/* mobile dots */}
             <div className="flex items-center gap-2.5 md:hidden" role="tablist">
-              {heroSlides.map((s, i) => (
+              {slides.map((s, i) => (
                 <button
                   key={i}
                   type="button"
@@ -332,7 +336,7 @@ export default function Hero() {
                 <span className="scroll-dot absolute left-0 top-0 block h-1.5 w-px bg-white" />
               </span>
               <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/60">
-                Scroll
+                {ui[lang].scroll}
               </span>
             </div>
           </div>

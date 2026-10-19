@@ -3,6 +3,8 @@
 import { useState } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import { faqs } from "@/data/site";
+import { ui } from "@/data/ui";
+import { useLang } from "@/components/I18nProvider";
 
 type FaqItem = { q: string; a: string };
 
@@ -12,20 +14,21 @@ type FaqProps = {
   title?: string;
 };
 
-export default function Faq({
-  items = faqs,
-  label = "Regulatory Clarity",
-  title = "Frequently Asked Questions.",
-}: FaqProps) {
+export default function Faq({ items, label, title }: FaqProps) {
+  const lang = useLang();
+  const t = ui[lang];
+  const list = items ?? faqs[lang];
+  const headingLabel = label ?? t.faqDefaultLabel;
+  const headingTitle = title ?? t.faqDefaultTitle;
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section id="faq" className="bg-white px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-[900px]">
-        <SectionHeading label={label} title={title} />
+        <SectionHeading label={headingLabel} title={headingTitle} />
 
         <div className="mt-12">
-          {items.map((item, i) => {
+          {list.map((item, i) => {
             const isOpen = open === i;
             return (
               <div key={item.q} className="border-b border-black/15">
