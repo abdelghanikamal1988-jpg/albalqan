@@ -12,12 +12,14 @@ const calSans = localFont({
   src: "../fonts/CalSansVF.woff2",
   weight: "100 900",
   display: "swap",
+  adjustFontFallback: false,
   variable: "--font-cal",
 });
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
   variable: "--font-inter",
 });
 
@@ -113,6 +115,7 @@ export default function ArabicRootLayout({
       dir="rtl"
       data-scroll-behavior="smooth"
       className={`${calSans.variable} ${inter.variable} ${arabic.variable} h-full`}
+      style={{ "--font-inter": '"Inter"' } as React.CSSProperties}
     >
       <body className="flex min-h-full flex-col">
         <script
