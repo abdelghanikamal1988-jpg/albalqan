@@ -197,13 +197,22 @@ export default function Header() {
               href={switchHref}
               aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
               title={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
-              className={`hidden items-center rounded-full border px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 sm:flex ${
-                onDark
-                  ? "border-white/40 text-white/80 hover:border-white hover:text-white"
-                  : "border-black/20 text-ink/70 hover:border-black/50 hover:text-ink"
+              className={`group relative hidden items-center overflow-hidden border px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 sm:flex ${
+                onDark ? "border-white text-white" : "border-ink text-ink"
               }`}
             >
-              {lang === "en" ? "AR" : "EN"}
+              <span
+                className={`relative z-10 transition-colors duration-300 ${
+                  onDark ? "group-hover:text-ink" : "group-hover:text-white"
+                }`}
+              >
+                {lang === "en" ? "AR" : "EN"}
+              </span>
+              <span
+                className={`absolute inset-0 -translate-y-full transition-transform duration-400 ease-out group-hover:translate-y-0 ${
+                  onDark ? "bg-white" : "bg-ink"
+                }`}
+              />
             </Link>
 
             <button
@@ -289,7 +298,7 @@ export default function Header() {
             <Link
               href={switchHref}
               aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
-              className="rounded-full border border-black/20 px-3 py-1.5 text-[11px] font-semibold text-ink/60 transition-colors duration-300 hover:border-black/50 hover:text-ink sm:hidden"
+              className="border border-black/20 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/60 transition-colors duration-300 hover:border-black/50 hover:text-ink sm:hidden"
             >
               {lang === "en" ? "AR" : "EN"}
             </Link>
