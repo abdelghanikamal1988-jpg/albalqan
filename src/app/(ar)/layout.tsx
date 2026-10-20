@@ -5,7 +5,7 @@ import { alternatesFor } from "@/lib/seo";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
-import { Inter, Cairo } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../globals.css";
 
 const calSans = localFont({
@@ -21,8 +21,14 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const arabic = Cairo({
-  subsets: ["arabic", "latin"],
+const arabic = localFont({
+  src: [
+    { path: "../fonts/29lt-bukra/29lt-bukra-lt.woff2", weight: "300", style: "normal" },
+    { path: "../fonts/29lt-bukra/29lt-bukra-rg.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/29lt-bukra/29lt-bukra-md.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/29lt-bukra/29lt-bukra-smbd.woff2", weight: "600", style: "normal" },
+    { path: "../fonts/29lt-bukra/29lt-bukra-bd.woff2", weight: "700", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-ar",
 });
