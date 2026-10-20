@@ -197,38 +197,13 @@ export default function Header() {
               href={switchHref}
               aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
               title={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
-              className={`group hidden items-center rounded-full border p-1 transition-colors duration-300 sm:flex ${
+              className={`hidden items-center rounded-full border px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 sm:flex ${
                 onDark
-                  ? "border-white/40 hover:border-white"
-                  : "border-black/20 hover:border-black/50"
+                  ? "border-white/40 text-white/80 hover:border-white hover:text-white"
+                  : "border-black/20 text-ink/70 hover:border-black/50 hover:text-ink"
               }`}
             >
-              <span
-                className={`rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 ${
-                  lang === "en"
-                    ? onDark
-                      ? "bg-white text-ink"
-                      : "bg-ink text-white"
-                    : onDark
-                      ? "text-white/60 group-hover:text-white"
-                      : "text-ink/50 group-hover:text-ink"
-                }`}
-              >
-                EN
-              </span>
-              <span
-                className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors duration-300 ${
-                  lang === "ar"
-                    ? onDark
-                      ? "bg-white text-ink"
-                      : "bg-ink text-white"
-                    : onDark
-                      ? "text-white/60 group-hover:text-white"
-                      : "text-ink/50 group-hover:text-ink"
-                }`}
-              >
-                عربي
-              </span>
+              {lang === "en" ? "AR" : "EN"}
             </Link>
 
             <button
@@ -316,7 +291,7 @@ export default function Header() {
               aria-label={lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
               className="rounded-full border border-black/20 px-3 py-1.5 text-[11px] font-semibold text-ink/60 transition-colors duration-300 hover:border-black/50 hover:text-ink sm:hidden"
             >
-              {lang === "en" ? "عربي" : "EN"}
+              {lang === "en" ? "AR" : "EN"}
             </Link>
             {socials.map((s) => (
               <a
